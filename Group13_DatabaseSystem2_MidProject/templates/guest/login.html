@@ -1,0 +1,75 @@
+{% extends "guest/guest_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+  NewsExpress | Log In
+{% endblock %}
+
+{% block content %}
+<br> <br> <br> <br>
+<section id="contact">
+  <div class="contact">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-sm-12 padding_all">
+
+          <div class="col-sm-12 padding all">
+            {{ user }}
+            <h2 style="text-align: center; padding-bottom: 20px; padding-top: 0">PLEASE LOG IN</h2>
+          </div>
+          
+          <div class="col-sm-6 padding_all">
+            <form action="{{ url_for('login') }}", method="POST">
+              {{ form.hidden_tag() }}
+              
+              <div class="col-sm-12 drop_2 clearfix">
+                <div class="col-sm-4 drop_2">
+                  <div class="contact_5">
+                    {{ wtf.form_field(form.username) }}
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-sm-12 drop_2 clearfix">
+                <div class="col-sm-4 drop_2">
+                  <div class="contact_5">
+                    {{ wtf.form_field(form.password) }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="col-sm-12 drop_2 clearfix">
+                <div class="col-sm-4 drop_2">
+                  <div class="contact_1">
+                    {{ wtf.form_field(form.remember) }}
+                  </div>
+                </div>
+              </div> -->
+              
+              <div class="col-sm-12 drop_2">
+                <div class="contact_5">
+                  <ul>
+                    <input type="submit" value="LOG IN">
+                  </ul>
+                </div>
+              </div>
+
+            </form>
+          </div>
+          
+          <!-- MAPS -->
+          <div class="col-sm-6 padding_all">
+            <section id="contact_main">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3635689.793072721!2d78.6421709625!3d27.141236999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1531201517392" width="100%" height="300" frameborder="0" style="border: orange" allowfullscreen=""></iframe>
+            </section>
+          </div>
+        
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<br> <br> <br> <br>
+{% endblock %}

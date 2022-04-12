@@ -1,0 +1,309 @@
+{%extends "user/base.html"%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} NewsExpress | Homepage {% endblock %}
+
+{% block content %}
+
+  <!-- navbar -->
+  <section id="header">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">N<span class="well_4">e</span>ws Express</br><span class="well_1">Inceptos Ad</span><span class="well_2"> Massa</span><span class="well_3"> One</span></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/">HOME</a></li>
+            <li><a href="/test/">TEST</a></li>
+            <li><a href="/create_news/">CREATE NEWS</a></li>
+            <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ username }} <i class="bi-person-circle"></i></a>
+             <ul class="dropdown-menu">
+               <li><a href="/logout/">LOG OUT</a></li>
+             </ul>
+           </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+  </section>
+
+ <section id="center" class="clearfix">
+  
+  <div class="container">
+   <div class="row">
+    <div class="col-sm-12 padding_all">
+      <div class="col-sm-8">
+
+        <!-- carousel -->
+        <div class="center_1">
+          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              
+              <!-- item sport -->
+              {% for x in range(news_sport_length) %}
+                {% if news_sport[x]['rating'] == top_sport[0] %}
+                  <div class="item">
+                    <a href="/details/{{ news_sport[x]['newsId'] }}">
+                      <img src="/static/img/{{ news_sport[x]['cover']['filename'] }}" style="width: 800px; height: 468px">
+                    </a>
+                    <div class="carousel-caption">
+                      <h3> {{ news_sport[x]['judul'] }}</h3>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+              
+              <!-- item travel -->
+              {% for x in range(news_travel_length) %}
+                {% if news_travel[x]['rating'] == top_travel[0] %}
+                  <div class="item active">
+                    <a href="/details/{{ news_travel[x]['newsId'] }}">
+                      <img src="/static/img/{{ news_travel[x]['cover']['filename'] }}" style="width: 800px; height: 468px">
+                    </a>
+                    <div class="carousel-caption">
+                      <h3>{{ news_travel[x]['judul'] }}</h3>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+              <!-- item political -->
+              {% for x in range(news_political_length) %}
+                {% if news_political[x]['rating'] == top_political[0] %}
+                  <div class="item">
+                    <a href="/details/{{ news_political[x]['newsId'] }}">
+                      <img src="/static/img/{{ news_political[x]['cover']['filename'] }}" style="width: 800px; height: 468px">
+                    </a>
+                    <div class="carousel-caption">
+                      <h3>{{ news_political[x]['judul'] }}</h3>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+              <!-- item health -->
+              {% for x in range(news_health_length) %}
+                {% if news_health[x]['rating'] == top_health[0] %}
+                  <div class="item">
+                    <a href="/details/{{ news_health[x]['newsId'] }}">
+                      <img src="/static/img/{{ news_health[x]['cover']['filename'] }}" style="width: 800px; height: 468px">
+                    </a>
+                    <div class="carousel-caption">
+                      <h3>{{ news_health[x]['judul'] }}</h3>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+              <!-- item entertainment -->
+              {% for x in range(news_entertainment_length) %}
+                {% if news_entertainment[x]['rating'] == top_entertainment[0] %}
+                  <div class="item">
+                    <a href="/details/{{ news_entertainment[x]['newsId'] }}">
+                      <img src="/static/img/{{ news_entertainment[x]['cover']['filename'] }}" style="width: 800px; height: 468px">
+                    </a>
+                    <div class="carousel-caption">
+                      <h3>{{ news_entertainment[x]['judul'] }}</h3>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+              
+            </div>
+     
+            <!-- Controls -->
+            <a class="left carousel-control" href="http://bootsnipp-env.elasticbeanstalk.com/iframe/xBdN#carousel-example-generic" data-slide="prev">
+              <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
+            </a>
+            <a class="right carousel-control" href="http://bootsnipp-env.elasticbeanstalk.com/iframe/xBdN#carousel-example-generic" data-slide="next">
+              <!-- <span class="glyphicon glyphicon-chevron-right"></span> -->
+            </a>
+          </div>
+        </div>
+
+        {% for x in pagination.items %}
+        <div class="col-sm-12 padding_all">
+          <div class="center_4 clearfix">
+           <div class="col-sm-4">
+           <div class="center_2">
+            <a href="/details/{{ x.newsId }}">
+              <img src="/static/img/{{ x.cover.filename }}" style="width: 100%; height: 150px">
+            </a>
+           </div>
+          </div>
+           <div class="col-sm-8">
+             <div class="center_3">
+               <h6><a href="#">{{ x.penulis }}</a> | {{ x.tanggal }} | <i class="bi-eye-fill"></i> {{ x.rating }}</h6>
+               <h3><a href="/details/{{ x.newsId }}">{{ x.judul }}</a></h3> <br>
+               <p style="text-align: justify">
+                 {{ x.detail[0] }}
+               </p>
+             </div>
+           </div>
+          </div>
+         </div>
+        {% endfor %}
+    
+        <!-- pagination controls -->
+        <div class="center_5 clearfix">
+          <ul>
+            {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+              {% if page_num %}
+                {% if pagination.page == page_num %}
+                  <li class="well_6"> {{ page_num }} </li>
+                {% else %}
+                <li><a href="{{ url_for('index', page=page_num) }}"> {{ page_num }} </a></li>
+                {% endif %}
+              {% else %}
+              <li>...</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+       </div>
+
+      <!-- LEAST FAVORITE NEWS SECTION -->
+      <div class="col-sm-4">
+
+        <!-- RANDOM NEWS TOPIC -->
+        <div class="center_main clearfix">
+          
+          <!-- SPORT -->
+          <div class="center_6">
+            <h3>LATEST SPORT NEWS</h3>
+          </div>
+          {% for x in range(news_sport_length) %}
+            {% if news_sport[x]['rating'] == top_sport[news_sport_length-1] %}
+              <div class="col-sm-12 padding_all">
+                <div class="col-sm-4 padding_all">
+                  <div class="center_7">
+                    <p><a href="/details/{{ news_sport[x]['newsId'] }}"><img src="/static/img/{{ news_sport[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                  </div>
+                </div>
+                <div class="col-sm-8 padding_all">
+                  <div class="center_8">
+                    <h5><a href="/details/{{ news_sport[x]['newsId'] }}">{{ news_sport[x]['judul'] }}</a></h5>
+                    <h5 style="padding-top: 0px;">{{ news_sport[x]['tanggal'] }}</h5>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <!-- POLITCS -->
+          <div class="center_6">
+            <h3>LATEST POLITICS NEWS</h3>
+          </div>
+          {% for x in range(news_political_length) %}
+            {% if news_political[x]['rating'] == top_political[news_political_length-1] %}
+              <div class="col-sm-12 padding_all">
+                <div class="col-sm-4 padding_all">
+                  <div class="center_7">
+                  <p><a href="/details/{{ news_political[x]['newsId'] }}"><img src="/static/img/{{ news_political[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                  </div>
+                </div>
+                <div class="col-sm-8 padding_all">
+                  <div class="center_8">
+                    <h5><a href="/details/{{ news_political[x]['newsId'] }}">{{ news_political[x]['judul'] }}</a></h5>
+                    <h5>{{ news_political[x]['tanggal'] }}</h5>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <!-- HEALTH -->
+          <div class="center_6">
+            <h3>LATEST HEALTH NEWS</h3>
+          </div>
+          {% for x in range(news_health_length) %}
+            {% if news_health[x]['rating'] == top_health[news_health_length-1] %}
+              <div class="col-sm-12 padding_all">
+                <div class="col-sm-4 padding_all">
+                  <div class="center_7">
+                  <p><a href="/details/{{ news_health[x]['newsId'] }}"><img src="/static/img/{{ news_health[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                  </div>
+                </div>
+                <div class="col-sm-8 padding_all">
+                  <div class="center_8">
+                    <h5><a href="/details/{{ news_health[x]['newsId'] }}">{{ news_health[x]['judul'] }}</a></h5>
+                    <h5>{{ news_health[x]['tanggal'] }}</h5>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <!-- TRAVEL -->
+          <div class="center_6">
+            <h3>LATEST TRAVEL NEWS</h3>
+          </div>
+          {% for x in range(news_travel_length) %}
+            {% if news_travel[x]['rating'] == top_travel[news_travel_length-1] %}
+              <div class="col-sm-12 padding_all">
+                <div class="col-sm-4 padding_all">
+                  <div class="center_7">
+                  <p><a href="/details/{{ news_travel[x]['newsId'] }}"><img src="/static/img/{{ news_travel[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                  </div>
+                </div>
+                <div class="col-sm-8 padding_all">
+                  <div class="center_8">
+                    <h5><a href="/details/{{ news_travel[x]['newsId'] }}">{{ news_travel[x]['judul'] }}</a></h5>
+                    <h5>{{ news_travel[x]['tanggal'] }}</h5>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <!-- ENTERTAINMENT -->
+          <div class="center_6">
+            <h3>LATEST ENTERTAINMENT NEWS</h3>
+          </div>
+          {% for x in range(news_entertainment_length) %}
+            {% if news_entertainment[x]['rating'] == top_entertainment[news_entertainment_length-1] %}
+              <div class="col-sm-12 padding_all">
+                <div class="col-sm-4 padding_all">
+                  <div class="center_7">
+                  <p><a href="/details/{{ news_entertainment[x]['newsId'] }}"><img src="/static/img/{{ news_entertainment[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                  </div>
+                </div>
+                <div class="col-sm-8 padding_all">
+                  <div class="center_8">
+                    <h5><a href="/details/{{ news_entertainment[x]['newsId'] }}">{{ news_entertainment[x]['judul'] }}</a></h5>
+                    <h5>{{ news_entertainment[x]['tanggal'] }}</h5>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <!-- NEWS FILTER -->
+          <div class="center_6">
+            <form action="{{ url_for('index') }}" method="POST">
+              {{ form.hidden_tag() }}
+              {{ wtf.form_field(form.searchText) }}
+              <input type="submit" value="FILTER">
+            </form>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ </section>
+
+{% endblock %}

@@ -1,0 +1,205 @@
+{%extends "guest/guest_base.html"%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 
+  NewsExpress | {{ data[0].judul }}
+{% endblock %}
+
+{% block content %}
+
+<section id="center" class="clearfix">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 padding_all">
+      
+        <!-- main view -->
+        <div class="col-sm-8">
+        
+          <div class="blog_1">
+          <ul>
+              <li><a href="#">{{ data[0]['kategori'] }}</a></li>
+          </ul>
+
+          <!-- gambar berita -->
+          <div class="col-sm-12 padding_all">
+            <div style="padding-top: 20px;">
+            <p><img src="/static/img/{{ data[0]['cover']['filename'] }}" width="100%"></p>
+            </div> 
+          </div>
+
+          <h2> {{ data[0]['judul'] }} </h2>
+          </div>
+
+          <div class="col-sm-12 padding_all">
+            <div class="col-sm-3 padding_all">
+              <div class="blog_2">
+                <h4><b><a href="#"> {{ data[0]['penulis'] }} </a>, {{ data[0]['tanggal'] }}</b></h4>
+              </div>
+            </div>
+            <div class="col-sm-7"></div>
+            <div class="col-sm-2 padding_all">
+              <div class="blog_3">
+                <ul>
+                  <li> {{ data[0]['rating'] }} <i class="bi-eye-fill"></i></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- detail berita -->
+          <div class="col-sm-12 padding_all">
+            <div class="details_1">
+              {% for x in data[0]['detail'] %}
+                <p style="text-align: justify">{{ x }}</p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- tags -->
+          <h3>Tags:</h3>
+          <div class="blog_1">
+            <ul style="padding: 5px; margin: 0">
+              {% for x in data[0]['tags'] %}
+                <li style="display: inline-block">
+                  <a href="#">{{ x }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- LEAST FAVORITE NEWS SECTION -->
+        <div class="col-sm-4">
+
+          <!-- RANDOM NEWS TOPIC -->
+          <div class="center_main clearfix">
+            
+            <!-- SPORT -->
+            <div class="center_6">
+              <h3>LATEST SPORT NEWS</h3>
+            </div>
+            {% for x in range(news_sport_length) %}
+              {% if news_sport[x]['rating'] == top_sport[news_sport_length-1] %}
+                <div class="col-sm-12 padding_all">
+                  <div class="col-sm-4 padding_all">
+                    <div class="center_7">
+                      <p><a href="/details_guest/{{ news_sport[x]['newsId'] }}"><img src="/static/img/{{ news_sport[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-8 padding_all">
+                    <div class="center_8">
+                      <h5><a href="/details_guest/{{ news_sport[x]['newsId'] }}">{{ news_sport[x]['judul'] }}</a></h5>
+                      <h5 style="padding-top: 0px;">{{ news_sport[x]['tanggal'] }}</h5>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+  
+            <!-- POLITCS -->
+            <div class="center_6">
+              <h3>LATEST POLITICS NEWS</h3>
+            </div>
+            {% for x in range(news_political_length) %}
+              {% if news_political[x]['rating'] == top_political[news_political_length-1] %}
+                <div class="col-sm-12 padding_all">
+                  <div class="col-sm-4 padding_all">
+                    <div class="center_7">
+                    <p><a href="/details_guest/{{ news_political[x]['newsId'] }}"><img src="/static/img/{{ news_political[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-8 padding_all">
+                    <div class="center_8">
+                      <h5><a href="/details_guest/{{ news_political[x]['newsId'] }}">{{ news_political[x]['judul'] }}</a></h5>
+                      <h5>{{ news_political[x]['tanggal'] }}</h5>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+  
+            <!-- HEALTH -->
+            <div class="center_6">
+              <h3>LATEST HEALTH NEWS</h3>
+            </div>
+            {% for x in range(news_health_length) %}
+              {% if news_health[x]['rating'] == top_health[news_health_length-1] %}
+                <div class="col-sm-12 padding_all">
+                  <div class="col-sm-4 padding_all">
+                    <div class="center_7">
+                    <p><a href="/details_guest/{{ news_health[x]['newsId'] }}"><img src="/static/img/{{ news_health[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-8 padding_all">
+                    <div class="center_8">
+                      <h5><a href="/details_guest/{{ news_health[x]['newsId'] }}">{{ news_health[x]['judul'] }}</a></h5>
+                      <h5>{{ news_health[x]['tanggal'] }}</h5>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+  
+            <!-- TRAVEL -->
+            <div class="center_6">
+              <h3>LATEST TRAVEL NEWS</h3>
+            </div>
+            {% for x in range(news_travel_length) %}
+              {% if news_travel[x]['rating'] == top_travel[news_travel_length-1] %}
+                <div class="col-sm-12 padding_all">
+                  <div class="col-sm-4 padding_all">
+                    <div class="center_7">
+                    <p><a href="/details_guest/{{ news_travel[x]['newsId'] }}"><img src="/static/img/{{ news_travel[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-8 padding_all">
+                    <div class="center_8">
+                      <h5><a href="/details_guest/{{ news_travel[x]['newsId'] }}">{{ news_travel[x]['judul'] }}</a></h5>
+                      <h5>{{ news_travel[x]['tanggal'] }}</h5>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+  
+            <!-- ENTERTAINMENT -->
+            <div class="center_6">
+              <h3>LATEST ENTERTAINMENT NEWS</h3>
+            </div>
+            {% for x in range(news_entertainment_length) %}
+              {% if news_entertainment[x]['rating'] == top_entertainment[news_entertainment_length-1] %}
+                <div class="col-sm-12 padding_all">
+                  <div class="col-sm-4 padding_all">
+                    <div class="center_7">
+                    <p><a href="/details_guest/{{ news_entertainment[x]['newsId'] }}"><img src="/static/img/{{ news_entertainment[x]['cover']['filename'] }}" style="width: 83px; height: 63;"></a></p>
+                    </div>
+                  </div>
+                  <div class="col-sm-8 padding_all">
+                    <div class="center_8">
+                      <h5><a href="/details_guest/{{ news_entertainment[x]['newsId'] }}">{{ news_entertainment[x]['judul'] }}</a></h5>
+                      <h5>{{ news_entertainment[x]['tanggal'] }}</h5>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+
+            <!-- NEWS FILTER -->
+            <div class="center_6">
+              <form action="{{ url_for('index_guest') }}" method="POST">
+                {{ form.hidden_tag() }}
+                {{ wtf.form_field(form.searchText) }}
+                <input type="submit" value="FILTER">
+              </form>
+            </div>
+  
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
