@@ -145,7 +145,11 @@
           </div>
            <div class="col-sm-8">
              <div class="center_3">
-               <h6><a href="#">{{ x.penulis }}</a> | {{ x.tanggal }} | <i class="bi-eye-fill"></i> {{ x.rating }}</h6>
+                <h6>
+                  <a href="/news_by_author/{{ x.penulis }}">{{ x.penulis }}</a> | 
+                  <a href="/news_by_date/{{ x.tanggal }}">{{ x.tanggal }}</a> | 
+                  <i class="bi-eye-fill"></i> {{ x.rating }}
+                </h6>
                <h3><a href="/details/{{ x.newsId }}">{{ x.judul }}</a></h3> <br>
                <p style="text-align: justify">
                  {{ x.detail[0] }}
@@ -164,7 +168,7 @@
                 {% if pagination.page == page_num %}
                   <li class="well_6"> {{ page_num }} </li>
                 {% else %}
-                <li><a href="{{ url_for('filter_news_by_date_guest', tanggal=tanggal, page=page_num) }}"> {{ page_num }} </a></li>
+                <li><a href="{{ url_for('filter_news_by_date', tanggal=tanggal, page=page_num) }}"> {{ page_num }} </a></li>
                 {% endif %}
               {% else %}
               <li>...</li>
@@ -291,11 +295,12 @@
           {% endfor %}
 
           <!-- NEWS FILTER -->
+          <!-- FILTER BY DATE -->
           <div class="center_6">
             <form action="{{ url_for('filter_news_by_date', tanggal=tanggal) }}" method="POST">
               {{ form.hidden_tag() }}
               {{ wtf.form_field(form.searchText) }}
-              <input type="submit" value="Filter">
+              <input type="submit" value="Filter By Date">
             </form>
           </div>
 

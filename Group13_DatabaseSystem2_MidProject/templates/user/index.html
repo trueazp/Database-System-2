@@ -41,7 +41,19 @@
   
   <div class="container">
    <div class="row">
+
     <div class="col-sm-12 padding_all">
+
+      <div class="col-sm-12" style="padding-bottom: 10px">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for msg in messages %}
+              <h2 style="text-align: center">{{ msg }}</h2>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+
       <div class="col-sm-8">
 
         <!-- carousel -->
@@ -145,7 +157,11 @@
           </div>
            <div class="col-sm-8">
              <div class="center_3">
-               <h6><a href="#">{{ x.penulis }}</a> | {{ x.tanggal }} | <i class="bi-eye-fill"></i> {{ x.rating }}</h6>
+                <h6>
+                  <a href="/news_by_author/{{ x.penulis }}">{{ x.penulis }}</a> | 
+                  <a href="/news_by_date/{{ x.tanggal }}">{{ x.tanggal }}</a> | 
+                  <i class="bi-eye-fill"></i> {{ x.rating }}
+                </h6>
                <h3><a href="/details/{{ x.newsId }}">{{ x.judul }}</a></h3> <br>
                <p style="text-align: justify">
                  {{ x.detail[0] }}
@@ -291,11 +307,43 @@
           {% endfor %}
 
           <!-- NEWS FILTER -->
+          <!-- FILTER BY DATE -->
           <div class="center_6">
             <form action="{{ url_for('index') }}" method="POST">
-              {{ form.hidden_tag() }}
-              {{ wtf.form_field(form.searchText) }}
-              <input type="submit" value="FILTER">
+              {{ form_filter_date.hidden_tag() }}
+              {{ wtf.form_field(form_filter_date.searchText) }}
+              <input type="hidden" name="filter_identifier" value="filter_by_date">
+              <input type="submit" value="Filter By Date">
+            </form>
+          </div>
+
+          <!-- FILTER BY TAGS -->
+          <div class="center_6">
+            <form action="{{ url_for('index') }}" method="POST">
+              {{ form_filter_tags.hidden_tag() }}
+              {{ wtf.form_field(form_filter_tags.searchText) }}
+              <input type="hidden" name="filter_identifier" value="filter_by_tags">
+              <input type="submit" value="Filter By Tags">
+            </form>
+          </div>
+
+          <!-- FILTER BY CATEGORY -->
+          <div class="center_6">
+            <form action="{{ url_for('index') }}" method="POST">
+              {{ form_filter_category.hidden_tag() }}
+              {{ wtf.form_field(form_filter_category.searchText) }}
+              <input type="hidden" name="filter_identifier" value="filter_by_category">
+              <input type="submit" value="Filter By Category">
+            </form>
+          </div>
+
+          <!-- FILTER BY AUTHOR -->
+          <div class="center_6">
+            <form action="{{ url_for('index') }}" method="POST">
+              {{ form_filter_author.hidden_tag() }}
+              {{ wtf.form_field(form_filter_author.searchText) }}
+              <input type="hidden" name="filter_identifier" value="filter_by_author">
+              <input type="submit" value="Filter By Author">
             </form>
           </div>
 

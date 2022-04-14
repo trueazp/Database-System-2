@@ -38,14 +38,6 @@
                   </div>
                 </div>
               </div>
-
-              <!-- <div class="col-sm-12 drop_2 clearfix">
-                <div class="col-sm-4 drop_2">
-                  <div class="contact_1">
-                    {{ wtf.form_field(form.remember) }}
-                  </div>
-                </div>
-              </div> -->
               
               <div class="col-sm-12 drop_2">
                 <div class="contact_5">
@@ -63,6 +55,17 @@
             <section id="contact_main">
               <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3635689.793072721!2d78.6421709625!3d27.141236999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1531201517392" width="100%" height="300" frameborder="0" style="border: orange" allowfullscreen=""></iframe>
             </section>
+          </div>
+
+          <!-- FLASH MESSAGES -->
+          <div class="col-sm-12 padding all" style="text-align: center">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for msg in messages %}
+                  <h3>{{ msg }}</h3>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
           </div>
         
         </div>

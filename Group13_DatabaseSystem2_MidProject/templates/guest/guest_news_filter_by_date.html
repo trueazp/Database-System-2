@@ -113,7 +113,11 @@
           </div>
            <div class="col-sm-8">
              <div class="center_3">
-               <h6><a href="#">{{ x.penulis }}</a> | {{ x.tanggal }} | <i class="bi-eye-fill"></i> {{ x.rating }}</h6>
+                <h6>
+                  <a href="/news_guest_by_author/{{ x.penulis }}">{{ x.penulis }}</a> | 
+                  <a href="/news_guest_by_date/{{ x.tanggal }}">{{ x.tanggal }}</a> | 
+                  <i class="bi-eye-fill"></i> {{ x.rating }}
+                </h6>
                <h3><a href="/details_guest/{{ x.newsId }}">{{ x.judul }}</a></h3> <br>
                <p style="text-align: justify">
                  {{ x.detail[0] }}
@@ -259,14 +263,15 @@
           {% endfor %}
 
           <!-- NEWS FILTER -->
+          <!-- FILTER BY DATE -->
           <div class="center_6">
             <form action="{{ url_for('filter_news_by_date_guest', tanggal=tanggal) }}" method="POST">
               {{ form.hidden_tag() }}
               {{ wtf.form_field(form.searchText) }}
-              <input type="submit" value="FILTER">
+              <input type="submit" value="Filter By Date">
             </form>
           </div>
-
+          
         </div>
       </div>
       
