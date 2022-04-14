@@ -467,7 +467,7 @@ def create_news():
       news.cover.put(open(file=os.path.join(app.config['UPLOAD_PATH'], filename), mode='rb'), content_type='image/png', filename=filename)
       news.save()
       flash('New News Has Been Created', 'info')
-      return render_template('user/create_news.html', form=form, username=username)
+      return render_template('user/create_news.html', form=form, username=username.split()[0])
   else:
     flash('You are not registered as an author', 'error')
     return redirect('/')
