@@ -136,7 +136,7 @@
                 {% if pagination.page == page_num %}
                   <li class="well_6"> {{ page_num }} </li>
                 {% else %}
-                <li><a href="{{ url_for('filter_news_by_date_guest', tanggal=tanggal, page=page_num) }}"> {{ page_num }} </a></li>
+                <li><a href="{{ url_for('filter_news_by_category_guest', kategori=kategori, page=page_num) }}"> {{ page_num }} </a></li>
                 {% endif %}
               {% else %}
               <li>...</li>

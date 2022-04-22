@@ -21,7 +21,7 @@ DB_URI = "mongodb+srv://miaowmere:{}@cluster0.bpg88.mongodb.net/{}?retryWrites=t
 )
 app.config['MONGODB_HOST'] = DB_URI
 app.config['SECRET_KEY'] = '\x8f\x01}\xd6&\x0eti\x1c\xc5K=\x85\x9a\x8d\xd9'
-app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', 'jpeg']
+app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jpeg']
 app.config['UPLOAD_PATH'] = 'D:/Kuliah/Semester_6/Sistem Basis Data 2/Group13_DatabaseSystem2_MidProject/static/img/'
 bootstrap = Bootstrap(app)
 db = MongoEngine(app)
@@ -382,6 +382,8 @@ def filter_news_by_date(tanggal):
 # FILTER NEWS BY TAGS / USER
 @app.route('/news_by_tags/<string:tags>', methods=['POST', 'GET'])
 def filter_news_by_tags(tags):
+
+
   form = FilterByTagsForm()
   tags_list = []
 
@@ -396,7 +398,10 @@ def filter_news_by_tags(tags):
     tags_list.append(tags)
 
   page = request.args.get('page', 1, type=int)
-  news_paginate = News.objects(tags__in=tags_list).order_by('-tanggal').paginate(page=page, per_page=3)
+  news_paginate = News.objects(tags__in=tags_list).order_by\
+    ('-tanggal').paginate(page=page, per_page=3)
+  
+  
   if session['_user_id']:
     username = User.objects.get(id=ObjectId(session['_user_id'])).username
     return render_template('user/news_filter_by_tags.html', data=news, data_length=len(news), pagination=news_paginate, username=username.split()[0], form=form, tags=tags,
